@@ -31,4 +31,3 @@ export interface ImageProps {
   sizeMultiplier?: number;
   landscape?: boolean;
 }
-

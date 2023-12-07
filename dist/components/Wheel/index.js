@@ -22,8 +22,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import WebFont from 'webfontloader';
 import { getQuantity, getRotationDegrees, isCustomFont, makeClassKey, } from '../../utils';
 import { roulettePointer } from '../common/images';
-import { RotationContainer, RouletteContainer, RoulettePointerImage, } from './styles';
-import { DEFAULT_BACKGROUND_COLORS, DEFAULT_FONT_FAMILY, DEFAULT_FONT_SIZE, DEFAULT_FONT_STYLE, DEFAULT_FONT_WEIGHT, DEFAULT_INNER_BORDER_COLOR, DEFAULT_INNER_BORDER_WIDTH, DEFAULT_INNER_RADIUS, DEFAULT_OUTER_BORDER_COLOR, DEFAULT_OUTER_BORDER_WIDTH, DEFAULT_RADIUS_LINE_COLOR, DEFAULT_RADIUS_LINE_WIDTH, DEFAULT_SPIN_DURATION, DEFAULT_TEXT_COLORS, DEFAULT_TEXT_DISTANCE, WEB_FONTS, DISABLE_INITIAL_ANIMATION, } from '../../strings';
+import { RotationContainer, RouletteBorderAnimation, RouletteContainer, RoulettePointerImage, } from './styles';
+import { DEFAULT_BACKGROUND_COLORS, DEFAULT_FONT_FAMILY, DEFAULT_FONT_SIZE, DEFAULT_FONT_STYLE, DEFAULT_FONT_WEIGHT, DEFAULT_INNER_BORDER_COLOR, DEFAULT_INNER_BORDER_WIDTH, DEFAULT_INNER_RADIUS, DEFAULT_OUTER_BORDER_COLOR, DEFAULT_OUTER_BORDER_WIDTH, DEFAULT_RADIUS_LINE_COLOR, DEFAULT_RADIUS_LINE_WIDTH, DEFAULT_SPIN_DURATION, DEFAULT_TEXT_COLORS, DEFAULT_TEXT_DISTANCE, WEB_FONTS, DISABLE_INITIAL_ANIMATION, DEFAULT_WORD_WRAP, } from '../../strings';
 import WheelCanvas from '../WheelCanvas';
 var STARTED_SPINNING = 'started-spinning';
 var START_SPINNING_TIME = 2600;
@@ -51,7 +51,7 @@ export var Wheel = function (_a) {
     var stopSpinningTime = STOP_SPINNING_TIME * normalizedSpinDuration;
     var totalSpinningTime = startSpinningTime + continueSpinningTime + stopSpinningTime;
     useEffect(function () {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
         var initialMapNum = 0;
         var auxPrizeMap = [];
         var dataLength = (data === null || data === void 0 ? void 0 : data.length) || 0;
@@ -72,6 +72,7 @@ export var Wheel = function (_a) {
                     textColor: ((_j = data[i].style) === null || _j === void 0 ? void 0 : _j.textColor) ||
                         (textColors === null || textColors === void 0 ? void 0 : textColors[i % (textColors === null || textColors === void 0 ? void 0 : textColors.length)]) ||
                         DEFAULT_TEXT_COLORS[0],
+                    wordWrap: ((_k = data[i].style) === null || _k === void 0 ? void 0 : _k.wordWrap) || DEFAULT_WORD_WRAP
                 } });
             auxPrizeMap.push([]);
             for (var j = 0; j < (wheelDataAux[i].optionSize || 1); j++) {
@@ -80,7 +81,7 @@ export var Wheel = function (_a) {
             if (data[i].image) {
                 setTotalImages(function (prevCounter) { return prevCounter + 1; });
                 var img_1 = new Image();
-                img_1.src = ((_k = data[i].image) === null || _k === void 0 ? void 0 : _k.uri) || '';
+                img_1.src = ((_l = data[i].image) === null || _l === void 0 ? void 0 : _l.uri) || '';
                 img_1.onload = function () {
                     var _a, _b, _c, _d, _e, _f;
                     img_1.height = 200 * (((_a = data[i].image) === null || _a === void 0 ? void 0 : _a.sizeMultiplier) || 1);
@@ -175,11 +176,18 @@ export var Wheel = function (_a) {
     if (!isDataUpdated) {
         return null;
     }
-    return (React.createElement(RouletteContainer, { style: !isFontLoaded ||
-            (totalImages > 0 && loadedImagesCounter !== totalImages)
-            ? { visibility: 'hidden' }
-            : {} },
-        React.createElement(RotationContainer, { className: getRouletteClass(), classKey: classKey, startSpinningTime: startSpinningTime, continueSpinningTime: continueSpinningTime, stopSpinningTime: stopSpinningTime, startRotationDegrees: startRotationDegrees, finalRotationDegrees: finalRotationDegrees, disableInitialAnimation: disableInitialAnimation },
-            React.createElement(WheelCanvas, { width: "900", height: "900", data: wheelData, outerBorderColor: outerBorderColor, outerBorderWidth: outerBorderWidth, innerRadius: innerRadius, innerBorderColor: innerBorderColor, innerBorderWidth: innerBorderWidth, radiusLineColor: radiusLineColor, radiusLineWidth: radiusLineWidth, fontFamily: fontFamily, fontWeight: fontWeight, fontStyle: fontStyle, fontSize: fontSize, perpendicularText: perpendicularText, prizeMap: prizeMap, rouletteUpdater: rouletteUpdater, textDistance: textDistance })),
-        React.createElement(RoulettePointerImage, { style: pointerProps === null || pointerProps === void 0 ? void 0 : pointerProps.style, src: (pointerProps === null || pointerProps === void 0 ? void 0 : pointerProps.src) || roulettePointer.src, alt: "roulette-static" })));
+    return (React.createElement("div", { style: {
+            padding: "0.4em",
+            borderRadius: "100%",
+            position: "relative",
+            backgroundColor: "#263893"
+        } },
+        React.createElement(RouletteBorderAnimation, null),
+        React.createElement(RouletteContainer, { style: !isFontLoaded ||
+                (totalImages > 0 && loadedImagesCounter !== totalImages)
+                ? { visibility: 'hidden' }
+                : {} },
+            React.createElement(RotationContainer, { className: getRouletteClass(), classKey: classKey, startSpinningTime: startSpinningTime, continueSpinningTime: continueSpinningTime, stopSpinningTime: stopSpinningTime, startRotationDegrees: startRotationDegrees, finalRotationDegrees: finalRotationDegrees, disableInitialAnimation: disableInitialAnimation },
+                React.createElement(WheelCanvas, { width: "900", height: "900", data: wheelData, outerBorderColor: outerBorderColor, outerBorderWidth: outerBorderWidth, innerRadius: innerRadius, innerBorderColor: innerBorderColor, innerBorderWidth: innerBorderWidth, radiusLineColor: radiusLineColor, radiusLineWidth: radiusLineWidth, fontFamily: fontFamily, fontWeight: fontWeight, fontStyle: fontStyle, fontSize: fontSize, perpendicularText: perpendicularText, prizeMap: prizeMap, rouletteUpdater: rouletteUpdater, textDistance: textDistance })),
+            React.createElement(RoulettePointerImage, { style: pointerProps === null || pointerProps === void 0 ? void 0 : pointerProps.style, src: (pointerProps === null || pointerProps === void 0 ? void 0 : pointerProps.src) || roulettePointer.src, alt: "roulette-static" }))));
 };

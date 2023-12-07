@@ -10,6 +10,7 @@ import {
 import { roulettePointer } from '../common/images';
 import {
   RotationContainer,
+  RouletteBorderAnimation,
   RouletteContainer,
   RoulettePointerImage,
 } from './styles';
@@ -143,13 +144,12 @@ export const Wheel = ({
           fontWeight:
             data[i].style?.fontWeight || fontWeight || DEFAULT_FONT_WEIGHT,
           fontStyle:
-            data[i].style?.fontStyle || fontStyle || DEFAULT_WORD_WRAP,
+            data[i].style?.fontStyle || fontStyle || DEFAULT_FONT_STYLE,
           textColor:
             data[i].style?.textColor ||
             textColors?.[i % textColors?.length] ||
             DEFAULT_TEXT_COLORS[0],
-          wordWrap:
-            data[i].style?.wordWrap || 'normal',
+          wordWrap: data[i].style?.wordWrap || DEFAULT_WORD_WRAP,
         },
       };
       auxPrizeMap.push([]);
@@ -212,7 +212,7 @@ export const Wheel = ({
       startSpinning();
       const selectedPrize =
         prizeMap[prizeNumber][
-        Math.floor(Math.random() * prizeMap[prizeNumber]?.length)
+          Math.floor(Math.random() * prizeMap[prizeNumber]?.length)
         ];
       const finalRotationDegreesCalculated = getRotationDegrees(
         selectedPrize,
@@ -266,50 +266,60 @@ export const Wheel = ({
   }
 
   return (
-    <RouletteContainer
-      style={
-        !isFontLoaded ||
-          (totalImages > 0 && loadedImagesCounter !== totalImages)
-          ? { visibility: 'hidden' }
-          : {}
-      }
+    <div
+      style={{
+        padding: '0.4em',
+        borderRadius: '100%',
+        position: 'relative',
+        backgroundColor: '#263893',
+      }}
     >
-      <RotationContainer
-        className={getRouletteClass()}
-        classKey={classKey}
-        startSpinningTime={startSpinningTime}
-        continueSpinningTime={continueSpinningTime}
-        stopSpinningTime={stopSpinningTime}
-        startRotationDegrees={startRotationDegrees}
-        finalRotationDegrees={finalRotationDegrees}
-        disableInitialAnimation={disableInitialAnimation}
+      <RouletteBorderAnimation></RouletteBorderAnimation>
+      <RouletteContainer
+        style={
+          !isFontLoaded ||
+          (totalImages > 0 && loadedImagesCounter !== totalImages)
+            ? { visibility: 'hidden' }
+            : {}
+        }
       >
-        <WheelCanvas
-          width="900"
-          height="900"
-          data={wheelData}
-          outerBorderColor={outerBorderColor}
-          outerBorderWidth={outerBorderWidth}
-          innerRadius={innerRadius}
-          innerBorderColor={innerBorderColor}
-          innerBorderWidth={innerBorderWidth}
-          radiusLineColor={radiusLineColor}
-          radiusLineWidth={radiusLineWidth}
-          fontFamily={fontFamily}
-          fontWeight={fontWeight}
-          fontStyle={fontStyle}
-          fontSize={fontSize}
-          perpendicularText={perpendicularText}
-          prizeMap={prizeMap}
-          rouletteUpdater={rouletteUpdater}
-          textDistance={textDistance}
+        <RotationContainer
+          className={getRouletteClass()}
+          classKey={classKey}
+          startSpinningTime={startSpinningTime}
+          continueSpinningTime={continueSpinningTime}
+          stopSpinningTime={stopSpinningTime}
+          startRotationDegrees={startRotationDegrees}
+          finalRotationDegrees={finalRotationDegrees}
+          disableInitialAnimation={disableInitialAnimation}
+        >
+          <WheelCanvas
+            width="900"
+            height="900"
+            data={wheelData}
+            outerBorderColor={outerBorderColor}
+            outerBorderWidth={outerBorderWidth}
+            innerRadius={innerRadius}
+            innerBorderColor={innerBorderColor}
+            innerBorderWidth={innerBorderWidth}
+            radiusLineColor={radiusLineColor}
+            radiusLineWidth={radiusLineWidth}
+            fontFamily={fontFamily}
+            fontWeight={fontWeight}
+            fontStyle={fontStyle}
+            fontSize={fontSize}
+            perpendicularText={perpendicularText}
+            prizeMap={prizeMap}
+            rouletteUpdater={rouletteUpdater}
+            textDistance={textDistance}
+          />
+        </RotationContainer>
+        <RoulettePointerImage
+          style={pointerProps?.style}
+          src={pointerProps?.src || roulettePointer.src}
+          alt="roulette-static"
         />
-      </RotationContainer>
-      <RoulettePointerImage
-        style={pointerProps?.style}
-        src={pointerProps?.src || roulettePointer.src}
-        alt="roulette-static"
-      />
-    </RouletteContainer>
+      </RouletteContainer>
+    </div>
   );
 };

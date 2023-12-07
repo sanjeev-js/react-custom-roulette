@@ -1,5 +1,4 @@
-import styled from 'styled-components';
-
+import styled, { keyframes } from 'styled-components';
 import { NonDraggableImage } from '../common/styledComponents';
 
 export const RouletteContainer = styled.div`
@@ -12,11 +11,12 @@ export const RouletteContainer = styled.div`
   flex-shrink: 0;
   z-index: 5;
   pointer-events: none;
+  // border: 1px solid red;
 `;
-
 export const RotationContainer = styled.div`
   position: absolute;
   width: 100%;
+  height: 100%;
   left: 0px;
   right: 0px;
   top: 0px;
@@ -24,8 +24,9 @@ export const RotationContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  // border: 1px solid green;
+  // padding: 1em;
   transform: rotate(${props => props.startRotationDegrees}deg);
-
   &.started-spinning {
     animation: spin-${({ classKey }) => classKey} ${({ startSpinningTime }) =>
           startSpinningTime / 1000}s cubic-bezier(
@@ -44,7 +45,6 @@ export const RotationContainer = styled.div`
         }) => (startSpinningTime + continueSpinningTime) / 1000}s 1 normal forwards
         running;
   }
-
   @keyframes spin-${({ classKey }) => classKey} {
     from {
       transform: rotate(${props => props.startRotationDegrees}deg);
@@ -70,11 +70,31 @@ export const RotationContainer = styled.div`
     }
   }
 `;
-
 export const RoulettePointerImage = styled(NonDraggableImage)`
   position: absolute;
   z-index: 5;
   width: 17%;
   right: 6px;
   top: 15px;
+`;
+// background: 'radial-gradient(#fff, #ede1e1, rgb(240, 210, 162), rgb(248, 130, 3))';
+const colorAnimation = keyframes`
+  0% {
+    background-color: white;
+  }
+  50% {
+    background-color: rgb(244, 214, 17);
+  }
+  100% {
+    background-color: white;
+  }
+`;
+export const RouletteBorderAnimation = styled.div`
+  width: 3%;
+  height: 3%;
+  border-radius: 100%;
+  position: absolute;
+  top: 0.4%;
+  left: 50%;
+  animation: ${colorAnimation} 2s ease-in-out infinite;
 `;

@@ -13,6 +13,7 @@ export interface StyleType {
     textColor?: string;
     fontFamily?: string;
     fontSize?: number;
+    wordWrap?: string;
     fontWeight?: number | string;
     fontStyle?: string;
 }

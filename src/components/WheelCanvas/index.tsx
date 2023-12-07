@@ -208,15 +208,16 @@ const drawWheel = (
       if (!data[i].image) {
         contentRotationAngle += perpendicularText ? Math.PI / 2 : 0;
       } else {
-        contentRotationAngle += 0
+        contentRotationAngle += 0;
       }
-      console.log("contentRotationAngle line 198", contentRotationAngle)
       ctx.rotate(contentRotationAngle);
 
       const text = data[i].option;
-      ctx.font = `${style?.fontStyle || fontStyle} ${style?.fontWeight || fontWeight
-        } ${(style?.fontSize || fontSize) * 2}px ${style?.fontFamily || fontFamily
-        } ${style?.wordWrap}, Helvetica, Arial`;
+      ctx.font = `${style?.fontStyle || fontStyle} ${
+        style?.fontWeight || fontWeight
+      } ${(style?.fontSize || fontSize) * 2}px ${
+        style?.fontFamily || fontFamily
+      } ${style?.wordWrap}, Helvetica, Arial`;
 
       ctx.fillStyle = (style && style.textColor) as string;
       ctx.fillText(
@@ -279,4 +280,3 @@ const WheelCanvas = ({
 };
 
 export default WheelCanvas;
-

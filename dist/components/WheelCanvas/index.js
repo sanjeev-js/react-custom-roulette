@@ -24,14 +24,26 @@ var drawWheel = function (canvasRef, data, drawWheelProps) {
         ctx.lineWidth = 0;
         var startAngle = 0;
         var outsideRadius = canvas.width / 2 - 10;
-        var clampedContentDistance = clamp(0, 100, textDistance);
-        var contentRadius = (outsideRadius * clampedContentDistance) / 100;
+        // if (data[i].image) {
+        //   const clampedContentDistance = clamp(0, 100, 80);
+        // } else {
+        //   const clampedContentDistance = clamp(0, 100, textDistance);
+        // }
+        var clampedContentDistance = void 0;
+        // const contentRadius = (outsideRadius * clampedContentDistance) / 100;
         var clampedInsideRadius = clamp(0, 100, innerRadius);
         var insideRadius = (outsideRadius * clampedInsideRadius) / 100;
         var centerX = canvas.width / 2;
         var centerY = canvas.height / 2;
         for (var i = 0; i < data.length; i++) {
             var _f = data[i], optionSize = _f.optionSize, style = _f.style;
+            if (data[i].image) {
+                clampedContentDistance = clamp(0, 100, 80);
+            }
+            else {
+                clampedContentDistance = clamp(0, 100, textDistance);
+            }
+            var contentRadius = (outsideRadius * clampedContentDistance) / 100;
             var arc = (optionSize && (optionSize * (2 * Math.PI)) / QUANTITY) ||
                 (2 * Math.PI) / QUANTITY;
             var endAngle = startAngle + arc;
@@ -78,15 +90,19 @@ var drawWheel = function (canvasRef, data, drawWheelProps) {
                     (((_d = data[i].image) === null || _d === void 0 ? void 0 : _d.landscape) ? 0 : 90) + // offsetY correction for non landscape images
                     (((_e = data[i].image) === null || _e === void 0 ? void 0 : _e.offsetY) || 0)) / 2, img.width, img.height);
             }
-            else {
-                // CASE TEXT
+            // CASE TEXT
+            if (!data[i].image) {
                 contentRotationAngle += perpendicularText ? Math.PI / 2 : 0;
-                ctx.rotate(contentRotationAngle);
-                var text = data[i].option;
-                ctx.font = "".concat((style === null || style === void 0 ? void 0 : style.fontStyle) || fontStyle, " ").concat((style === null || style === void 0 ? void 0 : style.fontWeight) || fontWeight, " ").concat(((style === null || style === void 0 ? void 0 : style.fontSize) || fontSize) * 2, "px ").concat((style === null || style === void 0 ? void 0 : style.fontFamily) || fontFamily, ", Helvetica, Arial");
-                ctx.fillStyle = (style && style.textColor);
-                ctx.fillText(text || '', -ctx.measureText(text || '').width / 2, fontSize / 2.7);
             }
+            else {
+                contentRotationAngle += 0;
+            }
+            console.log("contentRotationAngle line 198", contentRotationAngle);
+            ctx.rotate(contentRotationAngle);
+            var text = data[i].option;
+            ctx.font = "".concat((style === null || style === void 0 ? void 0 : style.fontStyle) || fontStyle, " ").concat((style === null || style === void 0 ? void 0 : style.fontWeight) || fontWeight, " ").concat(((style === null || style === void 0 ? void 0 : style.fontSize) || fontSize) * 2, "px ").concat((style === null || style === void 0 ? void 0 : style.fontFamily) || fontFamily, " ").concat(style === null || style === void 0 ? void 0 : style.wordWrap, ", Helvetica, Arial");
+            ctx.fillStyle = (style && style.textColor);
+            ctx.fillText(text || '', -ctx.measureText(text || '').width / 2, fontSize / 2.7);
             ctx.restore();
             startAngle = endAngle;
         }
