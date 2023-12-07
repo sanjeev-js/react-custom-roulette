@@ -208,16 +208,29 @@ const drawWheel = (
       if (!data[i].image) {
         contentRotationAngle += perpendicularText ? Math.PI / 2 : 0;
       } else {
-        contentRotationAngle += 0;
+        if (data.length === 9) {
+          contentRotationAngle += 1.6
+        }
+        if (data.length == 8) {
+          contentRotationAngle += 1.2
+        }
+        if (data.length == 7) {
+          contentRotationAngle += 0.7
+        }
+        if (data.length === 5) {
+          contentRotationAngle += 0.3
+        }
+        else {
+          contentRotationAngle += 0;
+        }
       }
+
       ctx.rotate(contentRotationAngle);
 
       const text = data[i].option;
-      ctx.font = `${style?.fontStyle || fontStyle} ${
-        style?.fontWeight || fontWeight
-      } ${(style?.fontSize || fontSize) * 2}px ${
-        style?.fontFamily || fontFamily
-      } ${style?.wordWrap}, Helvetica, Arial`;
+      ctx.font = `${style?.fontStyle || fontStyle} ${style?.fontWeight || fontWeight
+        } ${(style?.fontSize || fontSize) * 2}px ${style?.fontFamily || fontFamily
+        } ${style?.wordWrap}, Helvetica, Arial`;
 
       ctx.fillStyle = (style && style.textColor) as string;
       ctx.fillText(
