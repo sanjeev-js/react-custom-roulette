@@ -88,8 +88,13 @@ const drawWheel = (
     let startAngle = 0;
     const outsideRadius = canvas.width / 2 - 10;
 
-    const clampedContentDistance = clamp(0, 100, textDistance);
-    const contentRadius = (outsideRadius * clampedContentDistance) / 100;
+    // if (data[i].image) {
+    //   const clampedContentDistance = clamp(0, 100, 80);
+    // } else {
+    //   const clampedContentDistance = clamp(0, 100, textDistance);
+    // }
+    let clampedContentDistance;
+    // const contentRadius = (outsideRadius * clampedContentDistance) / 100;
 
     const clampedInsideRadius = clamp(0, 100, innerRadius);
     const insideRadius = (outsideRadius * clampedInsideRadius) / 100;
@@ -99,6 +104,13 @@ const drawWheel = (
 
     for (let i = 0; i < data.length; i++) {
       const { optionSize, style } = data[i];
+      if (data[i].image) {
+        clampedContentDistance = clamp(0, 100, 80);
+      } else {
+        clampedContentDistance = clamp(0, 100, textDistance);
+      }
+
+      const contentRadius = (outsideRadius * clampedContentDistance) / 100;
 
       const arc =
         (optionSize && (optionSize * (2 * Math.PI)) / QUANTITY) ||
@@ -191,24 +203,27 @@ const drawWheel = (
           img.width,
           img.height
         );
-      } else {
-        // CASE TEXT
-        contentRotationAngle += perpendicularText ? Math.PI / 2 : 0;
-        ctx.rotate(contentRotationAngle);
-
-        const text = data[i].option;
-        ctx.font = `${style?.fontStyle || fontStyle} ${
-          style?.fontWeight || fontWeight
-        } ${(style?.fontSize || fontSize) * 2}px ${
-          style?.fontFamily || fontFamily
-        }, Helvetica, Arial`;
-        ctx.fillStyle = (style && style.textColor) as string;
-        ctx.fillText(
-          text || '',
-          -ctx.measureText(text || '').width / 2,
-          fontSize / 2.7
-        );
       }
+      // CASE TEXT
+      if (!data[i].image) {
+        contentRotationAngle += perpendicularText ? Math.PI / 2 : 0;
+      } else {
+        contentRotationAngle += 0
+      }
+      console.log("contentRotationAngle line 198", contentRotationAngle)
+      ctx.rotate(contentRotationAngle);
+
+      const text = data[i].option;
+      ctx.font = `${style?.fontStyle || fontStyle} ${style?.fontWeight || fontWeight
+        } ${(style?.fontSize || fontSize) * 2}px ${style?.fontFamily || fontFamily
+        } ${style?.wordWrap}, Helvetica, Arial`;
+
+      ctx.fillStyle = (style && style.textColor) as string;
+      ctx.fillText(
+        text || '',
+        -ctx.measureText(text || '').width / 2,
+        fontSize / 2.7
+      );
 
       ctx.restore();
 
@@ -264,3 +279,4 @@ const WheelCanvas = ({
 };
 
 export default WheelCanvas;
+

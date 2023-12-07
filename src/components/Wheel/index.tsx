@@ -31,6 +31,7 @@ import {
   DEFAULT_TEXT_DISTANCE,
   WEB_FONTS,
   DISABLE_INITIAL_ANIMATION,
+  DEFAULT_WORD_WRAP,
 } from '../../strings';
 import { PointerProps, WheelData } from './types';
 import WheelCanvas from '../WheelCanvas';
@@ -142,11 +143,13 @@ export const Wheel = ({
           fontWeight:
             data[i].style?.fontWeight || fontWeight || DEFAULT_FONT_WEIGHT,
           fontStyle:
-            data[i].style?.fontStyle || fontStyle || DEFAULT_FONT_STYLE,
+            data[i].style?.fontStyle || fontStyle || DEFAULT_WORD_WRAP,
           textColor:
             data[i].style?.textColor ||
             textColors?.[i % textColors?.length] ||
             DEFAULT_TEXT_COLORS[0],
+          wordWrap:
+            data[i].style?.wordWrap || 'normal',
         },
       };
       auxPrizeMap.push([]);
@@ -209,7 +212,7 @@ export const Wheel = ({
       startSpinning();
       const selectedPrize =
         prizeMap[prizeNumber][
-          Math.floor(Math.random() * prizeMap[prizeNumber]?.length)
+        Math.floor(Math.random() * prizeMap[prizeNumber]?.length)
         ];
       const finalRotationDegreesCalculated = getRotationDegrees(
         selectedPrize,
@@ -266,7 +269,7 @@ export const Wheel = ({
     <RouletteContainer
       style={
         !isFontLoaded ||
-        (totalImages > 0 && loadedImagesCounter !== totalImages)
+          (totalImages > 0 && loadedImagesCounter !== totalImages)
           ? { visibility: 'hidden' }
           : {}
       }

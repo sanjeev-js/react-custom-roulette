@@ -14,6 +14,7 @@ export interface StyleType {
   textColor?: string;
   fontFamily?: string;
   fontSize?: number;
+  wordWrap?: string;
   fontWeight?: number | string;
   fontStyle?: string;
 }
@@ -30,3 +31,4 @@ export interface ImageProps {
   sizeMultiplier?: number;
   landscape?: boolean;
 }
+
