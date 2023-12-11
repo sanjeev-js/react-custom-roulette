@@ -10,7 +10,6 @@ import {
 import { roulettePointer } from '../common/images';
 import {
   RotationContainer,
-  RouletteBorderAnimation,
   RouletteContainer,
   RoulettePointerImage,
 } from './styles';
@@ -266,15 +265,15 @@ export const Wheel = ({
   }
 
   return (
-    <div
-      style={{
-        padding: '0.4em',
-        borderRadius: '100%',
-        position: 'relative',
-        backgroundColor: '#263893',
-      }}
-    >
-      <RouletteBorderAnimation></RouletteBorderAnimation>
+    // <div
+    //   style={{
+    //     padding: '0.4em',
+    //     borderRadius: '100%',
+    //     position: 'relative',
+    //     backgroundColor: '#263893',
+    //   }}
+    // >
+    //   <RouletteBorderAnimation></RouletteBorderAnimation>
       <RouletteContainer
         style={
           !isFontLoaded ||
@@ -320,6 +319,6 @@ export const Wheel = ({
           alt="roulette-static"
         />
       </RouletteContainer>
-    </div>
+    // </div>
   );
 };

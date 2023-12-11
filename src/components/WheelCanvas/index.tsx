@@ -184,11 +184,15 @@ const drawWheel = (
         centerY + Math.sin(startAngle + arc / 2) * contentRadius
       );
       let contentRotationAngle = startAngle + arc / 2;
+      let imageRotationAngle:any;
 
       if (data[i].image) {
         // CASE IMAGE
         contentRotationAngle +=
           data[i].image && !data[i].image?.landscape ? Math.PI / 2 : 0;
+
+        imageRotationAngle = contentRotationAngle;
+
         ctx.rotate(contentRotationAngle);
 
         const img = data[i].image?._imageHTML || new Image();
@@ -207,17 +211,16 @@ const drawWheel = (
       // CASE TEXT
       if (!data[i].image) {
         contentRotationAngle += perpendicularText ? Math.PI / 2 : 0;
-      } else {
-        contentRotationAngle += 0;
+      } else if (data[i].image && data[i].option) {
+        contentRotationAngle -= imageRotationAngle;
+        contentRotationAngle += Math.PI / 2
       }
       ctx.rotate(contentRotationAngle);
 
       const text = data[i].option;
-      ctx.font = `${style?.fontStyle || fontStyle} ${
-        style?.fontWeight || fontWeight
-      } ${(style?.fontSize || fontSize) * 2}px ${
-        style?.fontFamily || fontFamily
-      } ${style?.wordWrap}, Helvetica, Arial`;
+      ctx.font = `${style?.fontStyle || fontStyle} ${style?.fontWeight || fontWeight
+        } ${(style?.fontSize || fontSize) * 2}px ${style?.fontFamily || fontFamily
+        } ${style?.wordWrap}, Helvetica, Arial`;
 
       ctx.fillStyle = (style && style.textColor) as string;
       ctx.fillText(

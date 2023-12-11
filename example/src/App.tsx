@@ -4,17 +4,47 @@ import './App.css';
 import { Wheel } from 'react-custom-roulette';
 
 const data = [
-  { option: 'REACT' },
-  { option: 'CUSTOM' },
-  { option: 'ROULETTE', style: { textColor: '#f9dd50' } },
-  { option: 'WHEEL' },
-  { option: 'REACT' },
-  { option: 'CUSTOM' },
-  { option: 'ROULETTE', style: { textColor: '#70bbe0' } },
-  { option: 'WHEEL' },
+  {
+    option: "600 Bonus Points",
+    image: {
+      uri: "https://res.cloudinary.com/dbmdtmpvk/image/upload/v1701846139/sqs7jif0xqs83skgstnb.png",
+      landscape: true,
+      offsetX: 300,
+      offsetY: 40,
+      sizeMultiplier: 0.7
+    },
+  },
+  {
+    option: "800 Bonus Points",
+  },
+  {
+    option: "1000 Bonus Points",
+    image: {
+      uri: "https://res.cloudinary.com/dbmdtmpvk/image/upload/v1701846139/sqs7jif0xqs83skgstnb.png",
+      landscape: true,
+      offsetX: 300,
+      offsetY: 40,
+      sizeMultiplier: 0.7
+    }
+  },
+  {
+    option: "1500 Bonus Points",
+  },
+  {
+    option: "SmartPhone",
+  },
+  {
+    option: "Ola S1",
+  },
+  {
+    option: "Royal Enfield",
+  },
+  // {
+  //   option: "Maruti Swift",
+  // }
 ];
 
-const backgroundColors = ['#ff8f43', '#70bbe0', '#0b3351', '#f9dd50'];
+// const backgroundColors = ['#ff8f43', '#70bbe0', '#0b3351', '#f9dd50'];
 const textColors = ['#0b3351'];
 const outerBorderColor = '#eeeeee';
 const outerBorderWidth = 10;
@@ -25,7 +55,7 @@ const radiusLineColor = '#eeeeee';
 const radiusLineWidth = 8;
 const fontFamily = 'Nunito';
 const fontWeight = 'bold';
-const fontSize = 20;
+const fontSize = 12;
 const fontStyle = 'normal';
 const textDistance = 60;
 const spinDuration = 1.0;
@@ -49,7 +79,7 @@ const App = () => {
           mustStartSpinning={mustSpin}
           prizeNumber={prizeNumber}
           data={data}
-          backgroundColors={backgroundColors}
+          // backgroundColors={backgroundColors}
           textColors={textColors}
           fontFamily={fontFamily}
           fontSize={fontSize}
