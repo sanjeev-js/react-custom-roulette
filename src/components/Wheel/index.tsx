@@ -10,6 +10,9 @@ import {
 import { roulettePointer } from '../common/images';
 import {
   RotationContainer,
+  RouletteBorderAnimation,
+  // RouletteBorderAnimation1,
+  // RouletteBorderAnimation2,
   RouletteContainer,
   RoulettePointerImage,
 } from './styles';
@@ -31,7 +34,6 @@ import {
   DEFAULT_TEXT_DISTANCE,
   WEB_FONTS,
   DISABLE_INITIAL_ANIMATION,
-  DEFAULT_WORD_WRAP,
 } from '../../strings';
 import { PointerProps, WheelData } from './types';
 import WheelCanvas from '../WheelCanvas';
@@ -148,7 +150,6 @@ export const Wheel = ({
             data[i].style?.textColor ||
             textColors?.[i % textColors?.length] ||
             DEFAULT_TEXT_COLORS[0],
-          wordWrap: data[i].style?.wordWrap || DEFAULT_WORD_WRAP,
         },
       };
       auxPrizeMap.push([]);
@@ -265,60 +266,167 @@ export const Wheel = ({
   }
 
   return (
-    // <div
-    //   style={{
-    //     padding: '0.4em',
-    //     borderRadius: '100%',
-    //     position: 'relative',
-    //     backgroundColor: '#263893',
-    //   }}
-    // >
-    //   <RouletteBorderAnimation></RouletteBorderAnimation>
-      <RouletteContainer
-        style={
-          !isFontLoaded ||
-          (totalImages > 0 && loadedImagesCounter !== totalImages)
-            ? { visibility: 'hidden' }
-            : {}
-        }
+    <div
+    style={{
+      padding: "0.4em",
+      borderRadius: "100%",
+      position: "relative",
+      backgroundColor: "#263893"
+    }}
+    >
+
+      <RouletteBorderAnimation
+      mustStartSpinning={mustStartSpinning}
+      top="1.10%"
+      left="50%"
+      />
+      <RouletteBorderAnimation
+      mustStartSpinning={mustStartSpinning}
+      top="3.8%"
+      left="65%"
+      />
+      <RouletteBorderAnimation
+      mustStartSpinning={mustStartSpinning}
+      top="9.9%"
+      left="77%"
+      />
+      <RouletteBorderAnimation
+      mustStartSpinning={mustStartSpinning}
+      top="19.7%"
+      left="87%"
+      />
+      <RouletteBorderAnimation
+      mustStartSpinning={mustStartSpinning}
+      top="30.5%"
+      left="93.3%"
+      />
+      <RouletteBorderAnimation
+      mustStartSpinning={mustStartSpinning}
+      top="43.5%"
+      left="96.7%"
+      />
+      <RouletteBorderAnimation
+      mustStartSpinning={mustStartSpinning}
+      top="56.25%"
+      left="96.4%"
+      />
+      <RouletteBorderAnimation
+      mustStartSpinning={mustStartSpinning}
+      top="68%"
+      left="93%"
+      />
+       <RouletteBorderAnimation
+      mustStartSpinning={mustStartSpinning}
+      top="79%"
+      left="86.5%"
+      />
+      <RouletteBorderAnimation
+      mustStartSpinning={mustStartSpinning}
+      top="88%"
+      left="77%"
+      />
+      <RouletteBorderAnimation
+      mustStartSpinning={mustStartSpinning}
+      top="94.5%"
+      left="64.5%"
+      />
+      <RouletteBorderAnimation
+      mustStartSpinning={mustStartSpinning}
+      top="97%"
+      left="50%"
+      />
+      <RouletteBorderAnimation
+      mustStartSpinning={mustStartSpinning}
+      top="95.18%"
+      left="36%"
+      />
+      <RouletteBorderAnimation
+      mustStartSpinning={mustStartSpinning}
+      top="89.5%"
+      left="23%"
+      />
+      <RouletteBorderAnimation
+      mustStartSpinning={mustStartSpinning}
+      top="81%"
+      left="13%"
+      />
+      <RouletteBorderAnimation
+      mustStartSpinning={mustStartSpinning}
+      top="70%"
+      left="5.8%"
+      />
+      <RouletteBorderAnimation
+      mustStartSpinning={mustStartSpinning}
+      top="56%"
+      left="1.4 %"
+      />
+      <RouletteBorderAnimation
+      mustStartSpinning={mustStartSpinning}
+      top="41%"
+      left="1.6%"
+      />
+      <RouletteBorderAnimation
+      mustStartSpinning={mustStartSpinning}
+      top="26%"
+      left="6.5%"
+      />
+      <RouletteBorderAnimation
+      mustStartSpinning={mustStartSpinning}
+      top="13%"
+      left="17.3%"
+      />
+      <RouletteBorderAnimation
+      mustStartSpinning={mustStartSpinning}
+      top="4%"
+      left="32%"
+      />
+   
+    <RouletteContainer
+      style={
+        !isFontLoaded ||
+        (totalImages > 0 && loadedImagesCounter !== totalImages)
+          ? { visibility: 'hidden' }
+          : {}
+      }
+    >
+
+      <RotationContainer
+        className={getRouletteClass()}
+        classKey={classKey}
+        startSpinningTime={startSpinningTime}
+        continueSpinningTime={continueSpinningTime}
+        stopSpinningTime={stopSpinningTime}
+        startRotationDegrees={startRotationDegrees}
+        finalRotationDegrees={finalRotationDegrees}
+        disableInitialAnimation={disableInitialAnimation}
       >
-        <RotationContainer
-          className={getRouletteClass()}
-          classKey={classKey}
-          startSpinningTime={startSpinningTime}
-          continueSpinningTime={continueSpinningTime}
-          stopSpinningTime={stopSpinningTime}
-          startRotationDegrees={startRotationDegrees}
-          finalRotationDegrees={finalRotationDegrees}
-          disableInitialAnimation={disableInitialAnimation}
-        >
-          <WheelCanvas
-            width="900"
-            height="900"
-            data={wheelData}
-            outerBorderColor={outerBorderColor}
-            outerBorderWidth={outerBorderWidth}
-            innerRadius={innerRadius}
-            innerBorderColor={innerBorderColor}
-            innerBorderWidth={innerBorderWidth}
-            radiusLineColor={radiusLineColor}
-            radiusLineWidth={radiusLineWidth}
-            fontFamily={fontFamily}
-            fontWeight={fontWeight}
-            fontStyle={fontStyle}
-            fontSize={fontSize}
-            perpendicularText={perpendicularText}
-            prizeMap={prizeMap}
-            rouletteUpdater={rouletteUpdater}
-            textDistance={textDistance}
-          />
-        </RotationContainer>
-        <RoulettePointerImage
-          style={pointerProps?.style}
-          src={pointerProps?.src || roulettePointer.src}
-          alt="roulette-static"
+        <WheelCanvas
+          width="900"
+          height="900"
+          data={wheelData}
+          outerBorderColor={outerBorderColor}
+          outerBorderWidth={outerBorderWidth}
+          innerRadius={innerRadius}
+          innerBorderColor={innerBorderColor}
+          innerBorderWidth={innerBorderWidth}
+          radiusLineColor={radiusLineColor}
+          radiusLineWidth={radiusLineWidth}
+          fontFamily={fontFamily}
+          fontWeight={fontWeight}
+          fontStyle={fontStyle}
+          fontSize={fontSize}
+          perpendicularText={perpendicularText}
+          prizeMap={prizeMap}
+          rouletteUpdater={rouletteUpdater}
+          textDistance={textDistance}
         />
-      </RouletteContainer>
-    // </div>
+      </RotationContainer>
+      <RoulettePointerImage
+        style={pointerProps?.style}
+        src={pointerProps?.src || roulettePointer.src}
+        alt="roulette-static"
+      />
+    </RouletteContainer>
+    </div>
   );
 };

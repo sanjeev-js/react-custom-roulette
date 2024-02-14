@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+
 import { NonDraggableImage } from '../common/styledComponents';
 
 export const RouletteContainer = styled.div`
@@ -13,6 +14,7 @@ export const RouletteContainer = styled.div`
   pointer-events: none;
   // border: 1px solid red;
 `;
+
 export const RotationContainer = styled.div`
   position: absolute;
   width: 100%;
@@ -27,6 +29,7 @@ export const RotationContainer = styled.div`
   // border: 1px solid green;
   // padding: 1em;
   transform: rotate(${props => props.startRotationDegrees}deg);
+
   &.started-spinning {
     animation: spin-${({ classKey }) => classKey} ${({ startSpinningTime }) =>
           startSpinningTime / 1000}s cubic-bezier(
@@ -45,6 +48,7 @@ export const RotationContainer = styled.div`
         }) => (startSpinningTime + continueSpinningTime) / 1000}s 1 normal forwards
         running;
   }
+
   @keyframes spin-${({ classKey }) => classKey} {
     from {
       transform: rotate(${props => props.startRotationDegrees}deg);
@@ -70,6 +74,7 @@ export const RotationContainer = styled.div`
     }
   }
 `;
+
 export const RoulettePointerImage = styled(NonDraggableImage)`
   position: absolute;
   z-index: 5;
@@ -78,23 +83,28 @@ export const RoulettePointerImage = styled(NonDraggableImage)`
   top: 15px;
 `;
 // background: 'radial-gradient(#fff, #ede1e1, rgb(240, 210, 162), rgb(248, 130, 3))';
+
 const colorAnimation = keyframes`
   0% {
     background-color: white;
   }
+
   50% {
-    background-color: rgb(244, 214, 17);
+    background-color: #FFAD01;
   }
+
   100% {
     background-color: white;
   }
 `;
+
 export const RouletteBorderAnimation = styled.div`
-  width: 3%;
-  height: 3%;
+  width: 2%;
+  height: 2%;
   border-radius: 100%;
   position: absolute;
-  top: 0.4%;
-  left: 50%;
-  animation: ${colorAnimation} 2s ease-in-out infinite;
+  top: ${(props) => props.top};
+  left: ${(props) => props.left};
+  background-color: white;
+  animation: ${(props) => props.mustStartSpinning ? colorAnimation : ""} 2s ease-in-out infinite;
 `;
